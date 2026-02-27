@@ -2,17 +2,26 @@ import Foundation
 import Capacitor
 
 /**
- * Please read the Capacitor iOS Plugin Development Guide
- * here: https://capacitorjs.com/docs/plugins/ios
+ * Basic iOS wiring for the MqttBridge Capacitor plugin.
  */
 @objc(MqttBridgePlugin)
 public class MqttBridgePlugin: CAPPlugin {
-    private let implementation = MqttBridge()
+    public let jsName = "MqttBridge"
 
-    @objc func echo(_ call: CAPPluginCall) {
-        let value = call.getString("value") ?? ""
-        call.resolve([
-            "value": implementation.echo(value)
-        ])
+    @objc func connect(_ call: CAPPluginCall) {
+        call.reject("MqttBridge is not implemented on iOS yet.")
     }
+
+    @objc func disconnect(_ call: CAPPluginCall) {
+        call.reject("MqttBridge is not implemented on iOS yet.")
+    }
+
+    @objc func subscribe(_ call: CAPPluginCall) {
+        call.reject("MqttBridge is not implemented on iOS yet.")
+    }
+
+    @objc func publish(_ call: CAPPluginCall) {
+        call.reject("MqttBridge is not implemented on iOS yet.")
+    }
+
 }

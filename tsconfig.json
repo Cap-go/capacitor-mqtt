@@ -7,6 +7,8 @@
     "lib": ["dom", "es2017"],
     "module": "esnext",
     "moduleResolution": "node",
+    "skipLibCheck": true,
+    "types": ["node"],
     "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,

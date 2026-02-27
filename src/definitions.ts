@@ -67,17 +67,17 @@ export interface MqttBridgePlugin {
   addListener(
     eventName: 'onConnectionLost',
     listener: onConnectionLostListener,
-  ): Promise<PluginListenerHandle> & PluginListenerHandle;
+  ): Promise<PluginListenerHandle>;
 
   // Method to add an event listener for the "onConnectComplete" event
   addListener(
     eventName: 'onConnectComplete',
     listener: onConnectCompleteListener,
-  ): Promise<PluginListenerHandle> & PluginListenerHandle;
+  ): Promise<PluginListenerHandle>;
 
   // Method to add an event listener for the "onMessageArrived" event
   addListener(
     eventName: 'onMessageArrived',
     listener: onMessageArrivedListener,
-  ): Promise<PluginListenerHandle> & PluginListenerHandle;
+  ): Promise<PluginListenerHandle>;
 }
