@@ -2,51 +2,48 @@
   "name": "@capgo/capacitor-mqtt",
   "version": "1.0.0",
   "description": "Capacitor plugin for MQTT connectivity on Android and iOS",
-  "main": "dist/plugin.cjs.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/esm/index.d.ts",
-  "unpkg": "dist/plugin.js",
-  "files": [
-    "android/src/main/",
-    "android/build.gradle",
-    "dist/",
-    "ios/Sources",
-    "ios/Tests",
-    "Package.swift",
-    "MqttPlugin.podspec"
-  ],
-  "author": "ToriChan",
   "license": "MPL-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ToriChanIntegration/capacitor-mqtt.git"
+    "url": "https://github.com/Cap-go/capacitor-mqtt"
   },
   "bugs": {
-    "url": "https://github.com/ToriChanIntegration/capacitor-mqtt/issues"
+    "url": "https://github.com/Cap-go/capacitor-mqtt/issues"
   },
-  "homepage": "https://github.com/ToriChanIntegration/capacitor-mqtt",
+  "homepage": "https://capgo.app/docs/plugins/capacitor-mqtt/",
+  "author": "Martin Donadieu <martin@capgo.app>",
   "keywords": [
     "capacitor",
     "plugin",
     "mqtt",
     "iot",
-    "networking"
+    "networking",
+    "messaging",
+    "native"
+  ],
+  "main": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "files": [
+    "MqttPlugin.podspec",
+    "android/",
+    "dist/",
+    "ios/"
   ],
   "scripts": {
-    "verify": "bun run verify:ios && bun run verify:android && bun run verify:web",
+    "verify": "npm run verify:ios && npm run verify:android && npm run verify:web",
     "verify:ios": "xcodebuild -scheme MqttPlugin -destination generic/platform=iOS",
     "verify:android": "cd android && ./gradlew clean build test && cd ..",
-    "verify:web": "bun run build",
-    "lint": "bun run eslint && bun run prettier -- --check && bun run swiftlint -- lint",
-    "fmt": "bun run eslint -- --fix && bun run prettier -- --write && bun run swiftlint -- --fix --format",
-    "eslint": "eslint . --ext .ts",
+    "verify:web": "npm run build",
+    "lint": "npm run eslint && npm run prettier -- --check && npm run swiftlint -- lint",
+    "fmt": "npm run eslint -- --fix && npm run prettier -- --write && npm run swiftlint -- --fix --format",
+    "eslint": "eslint .",
     "prettier": "prettier-pretty-check \"**/*.{css,html,ts,js,java}\" --plugin=prettier-plugin-java",
     "swiftlint": "node-swiftlint",
     "docgen": "docgen --api MqttBridgePlugin --output-readme README.md --output-json dist/docs.json",
-    "build": "bun run clean && bun run docgen && tsc && rollup -c rollup.config.mjs",
+    "build": "npm run clean && npm run docgen && tsc && rollup -c rollup.config.mjs",
     "clean": "rimraf ./dist",
     "watch": "tsc --watch",
-    "prepublishOnly": "bun run build"
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@capacitor/android": "^8.0.0",
@@ -71,11 +68,11 @@
   "peerDependencies": {
     "@capacitor/core": ">=8.0.0"
   },
-  "prettier": "@ionic/prettier-config",
-  "swiftlint": "@ionic/swiftlint-config",
   "eslintConfig": {
     "extends": "@ionic/eslint-config/recommended"
   },
+  "prettier": "@ionic/prettier-config",
+  "swiftlint": "@ionic/swiftlint-config",
   "capacitor": {
     "ios": {
       "src": "ios"

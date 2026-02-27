@@ -2,16 +2,50 @@
 
 <a href="https://capgo.app/"><img src='https://raw.githubusercontent.com/Cap-go/capgo/main/assets/capgo_banner.png' alt='Capgo - Instant updates for capacitor'/></a>
 
-Capacitor plugin for MQTT connectivity on Android and iOS.
+<div align="center">
+  <h2><a href="https://capgo.app/?ref=plugin_mqtt"> ➡️ Get Instant updates for your App with Capgo</a></h2>
+  <h2><a href="https://capgo.app/consulting/?ref=plugin_mqtt"> Missing a feature? We'll build the plugin for you 💪</a></h2>
+</div>
+
+![NPM Version](https://img.shields.io/npm/v/%40capgo%2Fcapacitor-mqtt)
+![NPM Downloads](https://img.shields.io/npm/dy/%40capgo%2Fcapacitor-mqtt)
+![GitHub Repo stars](https://img.shields.io/github/stars/Cap-go/capacitor-mqtt)
+![GitHub License](https://img.shields.io/github/license/Cap-go/capacitor-mqtt)
+![Maintenance](https://img.shields.io/maintenance/yes/2025)
+
+<p>
+  Capacitor plugin for MQTT connectivity on Android and iOS using the Eclipse Paho MQTT library.
+</p>
+
+## Why MQTT?
+
+MQTT (Message Queuing Telemetry Transport) is a lightweight, publish-subscribe messaging protocol ideal for:
+
+- **IoT devices** - Low bandwidth, minimal battery usage
+- **Real-time messaging** - Instant message delivery between clients
+- **Remote monitoring** - Send/receive data from distributed devices
+- **Home automation** - Connect smart devices seamlessly
+
+This plugin provides a complete MQTT client implementation for Capacitor apps, supporting both Android and iOS.
+
+<br>
+
+This plugin is compatible with Capacitor 7 and above.
+
+Use v6 for Capacitor 6 and below.
+
+**PR's are greatly appreciated.**
 
 ## Features
 
 - Connect to MQTT brokers via TCP
-- Subscribe to topics
-- Publish messages
+- Subscribe to topics with QoS support
+- Publish messages with QoS and retained flag options
 - Listen for incoming messages
 - Automatic reconnection support
 - Connection loss detection
+- Clean session management
+- Keep-alive interval configuration
 
 ## Installation
 
