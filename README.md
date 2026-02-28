@@ -30,9 +30,8 @@ This plugin provides a complete MQTT client implementation for Capacitor apps, s
 
 <br>
 
-This plugin is compatible with Capacitor 7 and above.
+This plugin is compatible with Capacitor 8 and above.
 
-Use v6 for Capacitor 6 and below.
 
 **PR's are greatly appreciated.**
 
