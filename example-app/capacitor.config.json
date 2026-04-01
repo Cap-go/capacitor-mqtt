@@ -1,0 +1,10 @@
+{
+  "appId": "app.capgo.mqtt.example",
+  "appName": "MQTT Example",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false
+    }
+  }
+}
