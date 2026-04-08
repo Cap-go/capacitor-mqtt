@@ -21,7 +21,7 @@
 
 MQTT (Message Queuing Telemetry Transport) is a lightweight, publish-subscribe messaging protocol ideal for:
 
-- **IoT devices** - Low bandwidth, minimal battery usage
+- **IoT devices** - Low bandwidth, minimal battery usage.
 - **Real-time messaging** - Instant message delivery between clients
 - **Remote monitoring** - Send/receive data from distributed devices
 - **Home automation** - Connect smart devices seamlessly
