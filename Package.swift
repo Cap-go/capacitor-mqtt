@@ -2,11 +2,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "MqttPlugin",
+    name: "CapgoCapacitorMqtt",
     platforms: [.iOS(.v15)],
     products: [
         .library(
-            name: "MqttPlugin",
+            name: "CapgoCapacitorMqtt",
             targets: ["MqttPlugin"])
     ],
     dependencies: [
