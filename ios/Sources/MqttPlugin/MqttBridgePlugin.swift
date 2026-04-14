@@ -15,19 +15,25 @@ public class MqttBridgePlugin: CAPPlugin, CAPBridgedPlugin {
         CAPPluginMethod(name: "publish", returnType: CAPPluginReturnPromise)
     ]
 
+    private var mqttBridge: MqttBridge?
+
+    override public func load() {
+        mqttBridge = MqttBridge(plugin: self)
+    }
+
     @objc func connect(_ call: CAPPluginCall) {
-        call.reject("MqttBridge is not implemented on iOS yet.")
+        mqttBridge?.connect(call)
     }
 
     @objc func disconnect(_ call: CAPPluginCall) {
-        call.reject("MqttBridge is not implemented on iOS yet.")
+        mqttBridge?.disconnect(call)
     }
 
     @objc func subscribe(_ call: CAPPluginCall) {
-        call.reject("MqttBridge is not implemented on iOS yet.")
+        mqttBridge?.subscribe(call)
     }
 
     @objc func publish(_ call: CAPPluginCall) {
-        call.reject("MqttBridge is not implemented on iOS yet.")
+        mqttBridge?.publish(call)
     }
 }
