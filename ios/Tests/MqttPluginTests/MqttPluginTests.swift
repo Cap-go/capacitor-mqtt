@@ -39,4 +39,21 @@ class MqttPluginTests: XCTestCase {
             )
         }
     }
+
+    func testRejectsKeepAliveIntervalAboveUInt16Max() {
+        let invalidKeepAliveError = MqttBridgeValidationError.invalid(
+            "Invalid keep alive interval value. Please provide a non-zero value, otherwise " +
+                "your MQTT client connection may timeout or disconnect unexpectedly. " +
+                "Value must be between 1 and 65535."
+        )
+
+        XCTAssertThrowsError(
+            try MqttBridgeConnectOptions.makeKeepAliveInterval(Int(UInt16.max) + 1)
+        ) { error in
+            XCTAssertEqual(
+                error as? MqttBridgeValidationError,
+                invalidKeepAliveError
+            )
+        }
+    }
 }

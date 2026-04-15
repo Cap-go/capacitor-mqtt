@@ -134,13 +134,6 @@ struct MqttBridgeConnectOptions {
         }
 
         let keepAliveInterval = call.getInt("keepAliveInterval") ?? 60
-        guard keepAliveInterval > 0 else {
-            throw MqttBridgeValidationError.invalid(
-                "Invalid keep alive interval value. Please provide a non-zero value, otherwise " +
-                    "your MQTT client connection may timeout or disconnect unexpectedly."
-            )
-        }
-
         let trimmedClientId = call.getString("clientId")?.trimmingCharacters(in: .whitespacesAndNewlines)
         self.target = try MqttBridgeConnectionTarget(serverURI: rawServerURI, port: rawPort)
         self.clientId = trimmedClientId.flatMap { $0.isEmpty ? nil : $0 } ?? UUID().uuidString
@@ -148,9 +141,21 @@ struct MqttBridgeConnectOptions {
         self.password = call.getString("password")
         self.cleanSession = call.getBool("setCleanSession") ?? false
         self.connectionTimeout = TimeInterval(connectionTimeout)
-        self.keepAliveInterval = UInt16(keepAliveInterval)
+        self.keepAliveInterval = try MqttBridgeConnectOptions.makeKeepAliveInterval(keepAliveInterval)
         self.automaticReconnect = call.getBool("setAutomaticReconnect") ?? true
         self.lastWillMessage = try MqttBridgeConnectOptions.makeLastWillMessage(from: call)
+    }
+
+    static func makeKeepAliveInterval(_ rawValue: Int) throws -> UInt16 {
+        guard rawValue > 0, let keepAliveInterval = UInt16(exactly: rawValue) else {
+            throw MqttBridgeValidationError.invalid(
+                "Invalid keep alive interval value. Please provide a non-zero value, otherwise " +
+                    "your MQTT client connection may timeout or disconnect unexpectedly. " +
+                    "Value must be between 1 and 65535."
+            )
+        }
+
+        return keepAliveInterval
     }
 
     private static func makeLastWillMessage(from call: CAPPluginCall) throws -> CocoaMQTTMessage? {

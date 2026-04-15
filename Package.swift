@@ -11,7 +11,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "8.0.0"),
-        .package(url: "https://github.com/emqx/CocoaMQTT.git", from: "2.2.3")
+        .package(url: "https://github.com/emqx/CocoaMQTT.git", "2.2.3"..<"2.3.0")
     ],
     targets: [
         .target(
