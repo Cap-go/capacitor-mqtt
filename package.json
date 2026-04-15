@@ -1,6 +1,6 @@
 {
   "name": "@capgo/capacitor-mqtt",
-  "version": "8.0.3",
+  "version": "8.1.0",
   "description": "Capacitor plugin for MQTT connectivity on Android and iOS",
   "author": "Martin Donadieu <martin@capgo.app>",
   "license": "MPL-2.0",
