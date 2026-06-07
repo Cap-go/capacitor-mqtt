@@ -1,3 +1,5 @@
+import { CapacitorUpdater } from '@capgo/capacitor-updater';
+import { Capacitor } from '@capacitor/core';
 import './style.css';
 import { MqttBridge } from '@capgo/capacitor-mqtt';
 
@@ -123,3 +125,9 @@ MqttBridge.addListener('onMessageArrived', (result) => {
 });
 
 setOutput('Use a native shell to validate broker connectivity. The web implementation may throw for native-only methods.');
+
+if (Capacitor.isNativePlatform()) {
+  CapacitorUpdater.notifyAppReady().catch((error) => {
+    console.error('Capgo notifyAppReady failed', error);
+  });
+}
