@@ -124,7 +124,9 @@ MqttBridge.addListener('onMessageArrived', (result) => {
   logEvent('listener error', error?.message ?? error);
 });
 
-setOutput('Use a native shell to validate broker connectivity. The web implementation may throw for native-only methods.');
+setOutput(
+  'Use a native shell to validate broker connectivity. The web implementation may throw for native-only methods.',
+);
 
 if (Capacitor.isNativePlatform()) {
   CapacitorUpdater.notifyAppReady().catch((error) => {
