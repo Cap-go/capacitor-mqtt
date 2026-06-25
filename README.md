@@ -67,6 +67,28 @@ npm install @capgo/capacitor-mqtt
 npx cap sync
 ```
 
+
+## Android cleartext MQTT (tcp://)
+
+Android blocks non-TLS MQTT (`tcp://`) by default. If your broker does not use TLS, add a network security config in your app:
+
+```xml
+<!-- android/app/src/main/res/xml/network_security_config.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>
+```
+
+```xml
+<!-- android/app/src/main/AndroidManifest.xml -->
+<application
+    android:usesCleartextTraffic="true"
+    android:networkSecurityConfig="@xml/network_security_config">
+```
+
+Without this, `connect()` rejects with a broker connection error instead of silently failing.
+
 ## Usage
 
 ### Connect to MQTT Broker

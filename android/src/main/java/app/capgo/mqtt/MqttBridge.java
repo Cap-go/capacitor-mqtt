@@ -65,7 +65,17 @@ public class MqttBridge implements MqttCallbackExtended {
         // Extract necessary information from the PluginCall data
         JSObject dataFromPluginCall = call.getData();
         String serverURI = dataFromPluginCall.getString("serverURI");
-        String port = dataFromPluginCall.getString("port");
+        Integer portValue = dataFromPluginCall.getInteger("port");
+        if (portValue == null) {
+            String portString = dataFromPluginCall.getString("port");
+            if (portString != null && !portString.isEmpty()) {
+                try {
+                    portValue = Integer.parseInt(portString);
+                } catch (NumberFormatException ignored) {
+                    portValue = null;
+                }
+            }
+        }
         String clientId = dataFromPluginCall.getString("clientId");
         String username = dataFromPluginCall.getString("username");
         String password = dataFromPluginCall.getString("password");
@@ -82,10 +92,11 @@ public class MqttBridge implements MqttCallbackExtended {
             return;
         }
 
-        if (port == null || port.isEmpty()) {
-            call.reject("port number is required");
+        if (portValue == null || portValue <= 0) {
+            call.reject("port is required and must be a positive number");
             return;
         }
+        String port = String.valueOf(portValue);
 
         if (connectionTimeout == 0) {
             call.reject(
@@ -115,8 +126,12 @@ public class MqttBridge implements MqttCallbackExtended {
         mqttConnectOptions.setConnectionTimeout(connectionTimeout);
         mqttConnectOptions.setKeepAliveInterval(keepAliveInterval);
         mqttConnectOptions.setAutomaticReconnect(setAutomaticReconnect);
-        mqttConnectOptions.setUserName(username);
-        mqttConnectOptions.setPassword(password.toCharArray());
+        if (username != null) {
+            mqttConnectOptions.setUserName(username);
+        }
+        if (password != null) {
+            mqttConnectOptions.setPassword(password.toCharArray());
+        }
 
         // Set the last will message if it exists
         JSObject lastWillObj = dataFromPluginCall.getJSObject("setLastWill");
@@ -169,16 +184,35 @@ public class MqttBridge implements MqttCallbackExtended {
                 isConnecting = false;
                 call.reject("Failed to connect to MQTT broker: " + e.getMessage(), e);
             }
+        } else if (mqttClient != null && mqttClient.isConnected()) {
+            call.resolve();
+        } else if (isConnecting) {
+            call.reject("MQTT connection is already in progress");
         }
     }
 
     public void disconnect(final PluginCall call) {
-        if (mqttClient.isConnected()) {
-            try {
-                mqttClient.disconnect();
-
+        if (mqttClient == null) {
+            if (call != null) {
                 call.resolve();
-            } catch (Exception e) {
+            }
+            return;
+        }
+
+        if (!mqttClient.isConnected()) {
+            if (call != null) {
+                call.resolve();
+            }
+            return;
+        }
+
+        try {
+            mqttClient.disconnect();
+            if (call != null) {
+                call.resolve();
+            }
+        } catch (Exception e) {
+            if (call != null) {
                 call.reject("Disconnect Failed: " + e.getMessage(), e);
             }
         }
@@ -301,13 +335,14 @@ public class MqttBridge implements MqttCallbackExtended {
             message += "purposefully";
             reasonCode = MqttException.REASON_CODE_CLIENT_DISCONNECTING;
         } else {
-            // If the cause is not null, then the client disconnected unexpectedly
-            MqttException mqttException = (MqttException) cause;
-            reasonCode = mqttException.getReasonCode();
-            if (reasonCode == MqttException.REASON_CODE_CONNECTION_LOST) {
-                message += "unexpectedly";
-            } else if (reasonCode == MqttException.REASON_CODE_CLIENT_DISCONNECTING) {
-                message += "purposefully";
+            message += "unexpectedly";
+            if (cause instanceof MqttException) {
+                reasonCode = ((MqttException) cause).getReasonCode();
+                if (reasonCode == MqttException.REASON_CODE_CLIENT_DISCONNECTING) {
+                    message = "Client disconnected purposefully";
+                }
+            } else if (cause.getMessage() != null) {
+                message += ": " + cause.getMessage();
             }
         }
 
