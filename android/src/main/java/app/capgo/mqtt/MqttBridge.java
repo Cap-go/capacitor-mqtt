@@ -5,9 +5,9 @@ import android.util.Log;
 import app.capgo.mqtt.Constants;
 import com.getcapacitor.JSObject;
 import com.getcapacitor.PluginCall;
+import info.mqtt.android.service.MqttAndroidClient;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
-import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.IMqttToken;
@@ -165,8 +165,9 @@ public class MqttBridge implements MqttCallbackExtended {
                         }
                     }
                 );
-            } catch (MqttException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                isConnecting = false;
+                call.reject("Failed to connect to MQTT broker: " + e.getMessage(), e);
             }
         }
     }
@@ -177,9 +178,8 @@ public class MqttBridge implements MqttCallbackExtended {
                 mqttClient.disconnect();
 
                 call.resolve();
-            } catch (MqttException e) {
-                call.reject("Disconnect Failed: " + e);
-                e.printStackTrace();
+            } catch (Exception e) {
+                call.reject("Disconnect Failed: " + e.getMessage(), e);
             }
         }
     }
@@ -222,7 +222,7 @@ public class MqttBridge implements MqttCallbackExtended {
                     }
                 }
             );
-        } catch (MqttException ex) {
+        } catch (Exception ex) {
             // Reject the plugin call with an error message
             call.reject("Failed to subscribe to topic: " + topic);
         }
@@ -274,7 +274,7 @@ public class MqttBridge implements MqttCallbackExtended {
                     }
                 }
             );
-        } catch (MqttException ex) {
+        } catch (Exception ex) {
             // Reject the PluginCall with an error message
             call.reject("Failed to publish message to topic: " + topic);
         }
