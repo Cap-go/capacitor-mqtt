@@ -45,6 +45,7 @@ android {
 repositories {
     google()
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 
@@ -55,10 +56,16 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
 
     implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
-    implementation 'org.eclipse.paho:org.eclipse.paho.android.service:1.1.1'
-    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+    implementation 'com.github.hannesa2:paho.mqtt.android:4.5'
 
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+}
+
+// Required so consuming Android apps can resolve the MQTT Android client from JitPack.
+rootProject.allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
 }
