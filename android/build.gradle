@@ -62,3 +62,10 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
 }
+
+// Required so consuming Android apps can resolve the MQTT Android client from JitPack.
+rootProject.allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
