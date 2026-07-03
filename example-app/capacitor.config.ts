@@ -4,7 +4,7 @@ import pkg from './package.json';
 
 const config: CapacitorConfig = {
   appId: 'app.capgo.mqtt.example',
-  appName: 'MQTT Example',
+  appName: '@capgo/capacitor-mqtt',
   webDir: 'dist',
   plugins: {
     SplashScreen: {
