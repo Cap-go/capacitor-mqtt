@@ -1,11 +1,28 @@
 # @capgo/capacitor-mqtt
 
-<a href="https://capgo.app/"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-mqtt" alt="Capgo - Instant updates for Capacitor" /></a>
+Connect your Capacitor app to an MQTT broker on iOS and Android for real-time IoT messaging: publish, subscribe and react to messages as they arrive.
+
+<a href="https://capgo.app/?ref=plugin_mqtt"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-mqtt" alt="Capgo - Instant updates for Capacitor" /></a>
 
 <div align="center">
-  <h2><a href="https://capgo.app/?ref=plugin_mqtt"> ➡️ Get Instant updates for your App with Capgo</a></h2>
-  <h2><a href="https://capgo.app/consulting/?ref=plugin_mqtt"> Missing a feature? We'll build the plugin for you 💪</a></h2>
+  <p><b>Capgo</b>: open-source live updates for Ionic and Capacitor apps. Ship OTA fixes and features instantly, without waiting for app store review.</p>
+  <h2><a href="https://capgo.app/register/?ref=plugin_mqtt">➡️ Get started for free</a></h2>
+  <p>14-day unlimited free trial. No credit card required</p>
+  <p><a href="https://capgo.app/consulting/?ref=plugin_mqtt">Missing a feature? We'll build the plugin for you 💪</a></p>
 </div>
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Cap-go/capacitor-mqtt/main/assets/github-social-preview.png" alt="@capgo/capacitor-mqtt for Capacitor apps" width="300" />
+</p>
+
+## Key features
+
+- **Connect**: `connect()` with server URI, port, client ID, credentials, timeouts and automatic reconnect.
+- **Publish**: `publish()` sends a payload to a topic with QoS and retain options.
+- **Subscribe**: `subscribe()` to topics with a QoS level.
+- **Events**: `onMessageArrived`, `onConnectComplete` and `onConnectionLost` listeners.
+- **Native clients**: CocoaMQTT on iOS and Eclipse Paho on Android.
+- **Platforms**: iOS and Android. Not available on web.
 
 ![NPM Version](https://img.shields.io/npm/v/%40capgo%2Fcapacitor-mqtt)
 ![NPM Downloads](https://img.shields.io/npm/dy/%40capgo%2Fcapacitor-mqtt)
